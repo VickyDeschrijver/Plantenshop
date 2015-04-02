@@ -13,10 +13,14 @@ $(function() {
 
 	$('a[href^="http"]').on('click', function() {
 		alert('U staat op het punt de pagina te verlaten')
-	})
+	});
+
+	$('<a href="#about" title="terug naar boven"> Terug naar boven </a>').insertBefore(':header:gt(1)')
+		.button({icons:{secondary:'ui-icon-circle-triangle-n'}});
 
 });
 
+var lijst	=	['roger', 'evelyn', 'hilde', 'jan'];
 
 var walkTree = function (root, $list, enter, exit) 
 {
