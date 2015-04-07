@@ -17,6 +17,8 @@
 <link rel='stylesheet' type='text/css' href='css/forms.css'  />
 <link rel='stylesheet' type='text/css' href='js/vendor/jquery/jquery-ui.min.css' />
 
+
+
 <!-- pagina-gebondenstylesheets --></head>
 
 {$paginaStylesheets}
@@ -25,6 +27,11 @@
 <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 <script src="js/vendor/jquery/external/jquery/jquery.js"> </script>
 <script src="js/vendor/jquery/jquery-ui.min.js"> </script>
+
+<!-- localisation files datepicker -->
+<script type="text/javascript" src="js/vendor/jquery/jquery-validate-1.13.1/dist/localization/jquery.datepicker-nl-BE.js"> </script>
+<script type="text/javascript" src="js/vendor/jquery/jquery-validate-1.13.1/dist/localization/jquery.datepicker-fr.js"> </script>
+<script type="text/javascript" src="js/vendor/jquery/jquery-validate-1.13.1/dist/localization/jquery.datepicker-de.js"> </script>
 
 <!-- pagina-gebonden JS scripts-->
 {$paginaScripts}

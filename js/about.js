@@ -18,10 +18,42 @@ $(function() {
 	$('<a href="#about" title="terug naar boven"> Terug naar boven </a>').insertBefore(':header:gt(1)')
 		.button({icons:{secondary:'ui-icon-circle-triangle-n'}});
 
-});
+	// oorspronkelijke versie: een UL
+	//var $uul	=	$('<ul>');
+	//$.each(lijst, function(n, value) {
+	//	$('<li>').text(value).appendTo($uul);
+	//})
+	//$('#team').after($uul);
 
-var lijst	=	['roger', 'evelyn', 'hilde', 'jan'];
+	// versie voor JSON gegevens
+	var $container		=	$('<div id="teamboks">');
+	var $diefrechts		=	$('<div id="teamgegevens">');
+	var $keuzelijst		=	$('<select id="teamkeuzelijst">');
+	var strDeOptions	=	'<option value="">--- het team ---</option>';
+	$.each(lijst, function(n, value) {
+		strDeOptions	+=	'<option>' + value + '</option>';
+	})
+	$keuzelijst.html(strDeOptions);
+	$container.append($keuzelijst).prepend($diefrechts);
+	$('#team').after($container);
 
+	// maak de inhoudsopgave
+	var root		=	$('article')[0];
+	var $list		=	$('<ol>');
+	$('#toc').empty().append(walkTree(root,$list,enterNode,exitNode));
+
+}); // einde doc.ready
+
+
+//-------------arrays -----------------
+var lijst			=	['roger', 'evelyn', 'hilde', 'jan'];
+
+var arrKoppen		=	["h1", "h2", "h3", "h4", "h5", "h6"];
+var arrSections		=	["article", "section", "aside", "nav"];
+var getal			=	1;
+
+
+// ************* walktree function *******************
 var walkTree = function (root, $list, enter, exit) 
 {
   var node = root;
@@ -46,3 +78,62 @@ var walkTree = function (root, $list, enter, exit)
   }
   return $list;
 }
+
+var checkNode	= function (node) {
+	// controleert of deze node in aanmerking komt voor de inhoudsopgave
+	// enkel als elementNode, in de lijst sectionElms en geen no-toc
+	var strNotoc	=	"no-toc";
+	return (node.nodeType==1 && arrSections.indexOf(node.tagName.toLowerCase())>=0 && node.className.indexOf(strNotoc)==-1)
+}
+
+function enterNode(node,$list) {
+	// bouwt $list op bij het binnengaan van een node
+	if(checkNode(node)) {
+		var $nieuw	=	$('<li>').attr("tabindex", getal.toString());
+		var $a		=	$('<a>').attr({
+			"href"	:	"#" + getal.toString(),
+			"id"	:	"o" + getal.toString(),
+		});
+
+		node.setAttribute("id", getal.toString());
+		getal++;
+
+		$a.text(zoekKoppen(node));
+		$nieuw.append($a);
+
+		if($list[0].tagName=="LI") {
+			var $nieuweLijst	=	$('<ol>').append($nieuw);
+			$list.append($nieuweLijst);
+			$list	=	$nieuw;
+		}
+		else {
+			$list.append($nieuw);
+			$list	=	$nieuw;
+		}
+	}
+	return $list;
+}
+
+var exitNode	=	function(node,$list) {
+	// bij hetverlaten van de node
+	if(checkNode(node)) {
+		if($list[0].tagName=="OL") {$list = $list.parent()}
+		$list	=	$list.parent();
+	}
+	return $list;
+}
+
+var zoekKoppen	=	function(node) {
+	var $node		=	$(node);
+	var koptekst	=	"";
+	// zoek de hoogste kop, return zijn tekst
+	$.each(arrKoppen,function(i,v) {
+		var $kop	=	$(v,$node);
+		if($kop.length > 0) {
+			koptekst	=	$kop.first().text();
+			return false;
+		}
+	})
+	return koptekst;
+}
+
