@@ -41,6 +41,28 @@ $(function () {
         .end()
         .last().attr({'title':'Maximum hoogte'})
 
+    // dataTables
+    $("#plantenlijst").dataTable({
+        "bPaginate":        true,
+        "bSort":            true,
+        "iDisplayLength":   20,
+        //"iDisplayStart":    20,
+        "sPaginationType":  "full_numbers",
+        "aLengthMenu":      [[10, 25, 50, -1], [10, 25, 50, "Alle Records"]],
+        "bProcessing":      true,
+        "aaSorting":        [[6, 'asc'], [2, 'desc']],
+        "aoColumnDefs":     [
+            { "bVisible":   false, "aTargets": [5] },                               // laatste kolom 'prijs' w verborgen
+            { "bSortable":  false, "aTargets": [2, 6] },                            // 3e en 6e kolom kunnen nt meer worden gesorteerd
+            { "asSorting":  false, "aTargets": [3] },                               // 4e kolom kan enkel 'asc' w gesorteerd
+            { "bSearchable": false, "sTitle":   "Rubriek", "aTargets": [6] },       // Bepaald in welke kolom de zoekfunctie zoekt
+            { "sTitle":     "Lengte", "sWidth": "5%", "aTargets": [2] },            // verandert kolom hoogte in 'lengte'
+            { "sClass":     "dt_fluo", "aTargets": [0] }                            // geeft een class aan 1e kolom
+        ],
+        "oLanguage":        {"sUrl": "js/vendor/jquery/dataTables-1.10.6/media/js/datatables.nederlands.txt"},
+
+    });
+
 }); // einde doc.ready
 
 

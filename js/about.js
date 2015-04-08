@@ -42,6 +42,29 @@ $(function() {
 	var $list		=	$('<ol>');
 	$('#toc').empty().append(walkTree(root,$list,enterNode,exitNode));
 
+
+	//***************** AJAX call nr JSON gegevens team************************//
+	$('#teamkeuzelijst')
+		.change(function(){
+			var waarde	=	$(this).val();
+			//console.log(waarde + ' gekozen');
+			$.getJSON(
+				'services/ajax_json_team.php',
+				{teamlid:waarde},
+				function(jeeson) {
+					var strHTML	=	"";
+					if(jeeson.naam) {
+						strHTML	+=	"<img src='images/" + jeeson.foto + "' />";
+						strHTML	+=	"<h3>" + jeeson.naam + "</h3>";
+						strHTML	+=	"<p> leeftijd: " + jeeson.leeftijd + "</p>";
+						strHTML	+=	"<p> functie: " + jeeson.functie + "</p>";
+					}
+					$('#teamgegevens').html(strHTML);
+				}
+			)	// einde getJSON
+		})
+
+
 }); // einde doc.ready
 
 

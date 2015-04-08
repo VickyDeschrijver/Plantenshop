@@ -53,7 +53,27 @@ if(isset($_GET['page'])){
 			$tpl['body_id'] 			= "shop";					
 			//content
 			$tpl['rechts'] 				= getPlanten($soort_id, $kleur, $hoogte_min, $hoogte_max);
-			$tpl['paginaScripts']		= getScriptElements("js/shop.js");
+			$tpl['paginaScripts']		= getScriptElements(array("js/vendor/jquery/dataTables-1.10.6/media/js/jquery.dataTables.min.js","js/shop.js"));
+			$tpl['paginaStylesheets']	= getLinkElements("js/vendor/jquery/dataTables-1.10.6/media/css/jquery.dataTables.css");
+			
+			break;
+		
+		case "ajaxshop":
+			/*** Planten pagina, ajax ***/
+			
+			//init zoekvariabelen
+			$soort_id 					= (isset($_GET['soort_id']))	?$_GET['soort_id']			:'%';
+			$kleur 						= (isset($_GET['kleur']))		?$_GET['kleur']				:'%';
+			$hoogte_min 				= (isset($_GET['hoogte_min']))	?intval($_GET['hoogte_min']):0;
+			$hoogte_max 				= (isset($_GET['hoogte_max']))	?intval($_GET['hoogte_max']):5000;
+
+			
+			$tpl['title'] 				= "de Plantenshop: ons aanbod"; 		
+			$tpl['body_id'] 			= "shop";					
+			//content
+			$tpl['rechts'] 				= getAjaxPlanten();
+			$tpl['paginaScripts']		= getScriptElements(array("js/vendor/jquery/dataTables-1.10.6/media/js/jquery.dataTables.min.js", "js/vendor/jquery/dataTables-1.10.6/media/js/dataTables.fnReloadAjax.js", "js/ajaxshop.js"));
+			$tpl['paginaStylesheets']	= getLinkElements("js/vendor/jquery/dataTables-1.10.6/media/css/jquery.dataTables.css");
 			
 			break;
 		
