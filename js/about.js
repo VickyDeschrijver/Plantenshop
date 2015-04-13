@@ -25,15 +25,20 @@ $(function() {
 	//})
 	//$('#team').after($uul);
 
-	// versie voor JSON gegevens
+	// versie voor JSON gegevens - oorspronkelijke JavaScript versie
 	var $container		=	$('<div id="teamboks">');
 	var $diefrechts		=	$('<div id="teamgegevens">');
 	var $keuzelijst		=	$('<select id="teamkeuzelijst">');
 	var strDeOptions	=	'<option value="">--- het team ---</option>';
-	$.each(lijst, function(n, value) {
+
+	/* $.each(lijst, function(n, value) {
 		strDeOptions	+=	'<option>' + value + '</option>';
 	})
-	$keuzelijst.html(strDeOptions);
+	$keuzelijst.html(strDeOptions); */
+
+	//met custom wrapper method
+	$keuzelijst.vulSelect(lijst, "-- Kies een teamlid --");
+
 	$container.append($keuzelijst).prepend($diefrechts);
 	$('#team').after($container);
 
@@ -63,6 +68,11 @@ $(function() {
 				}
 			)	// einde getJSON
 		})
+
+	//jquery.vix.utils.js
+	$.zegDankUTegen('Gilbert');
+	$('<li>').html($.vandaag()).prependTo('footer ul').wordtGroen();
+
 
 
 }); // einde doc.ready

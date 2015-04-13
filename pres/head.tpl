@@ -27,6 +27,7 @@
 <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 <script src="js/vendor/jquery/external/jquery/jquery.js"> </script>
 <script src="js/vendor/jquery/jquery-ui.min.js"> </script>
+<script src="js/vendor/jquery/js/jquery.vix.utils.js"> </script>
 
 <!-- localisation files datepicker -->
 <script type="text/javascript" src="js/vendor/jquery/jquery-validate-1.13.1/dist/localization/jquery.datepicker-nl-BE.js"> </script>

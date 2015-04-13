@@ -2,6 +2,29 @@
 // voor fotogalerij pagina
 
 
+$(window).load(function() {
+	$('figure').knipoog({bgColor:"cyan", color:"navy", location:"bottom"});
+
+	//	knoppen stylen
+	$('.knop').button();
+
+	//	 Event handlers voor knoppen
+	$('#af').on("click", function() {
+		$('figure').knipoog("disable");
+	})
+	$('#aan').on("click", function() {
+		$('figure').knipoog("enable");
+	})
+	$('#boven').on("click", function() {
+		$('figure').knipoog("option", "location", "top");
+	})
+	$('#stop').on("click", function() {
+		$('figure').knipoog("destroy");
+	})
+
+})  // einde window.load
+
+
 /*
 Elk element van bevat achtereenvolgens:
 	de bestandsnaam van de grote foto zonder ".jpg"
